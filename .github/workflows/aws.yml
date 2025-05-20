@@ -20,7 +20,7 @@ jobs:
 
       - name: Build Docker Image
         # Pass build arguments for frontend environment variables
-        run: docker build -t zunsod/proshop-frontend --build-arg REACT_APP_NODE_ENV='production' --build-arg BACKEND_URL=${{ secrets.BACKEND_URL }} .
+        run: docker build -t zunsod/proshop-frontend --build-arg REACT_APP_NODE_ENV='production' --build-arg REACT_APP_BACKEND_URL=${{ secrets.BACKEND_URL }} .
 
       - name: Push Docker Image to Docker Hub
         run: docker push zunsod/proshop-frontend:latest
