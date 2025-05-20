@@ -20,6 +20,7 @@ jobs:
 
       - name: Build Docker Image
         # Pass build arguments for frontend environment variables
+        # Ensure REACT_APP_BACKEND_URL is passed with the correct prefix
         run: docker build -t zunsod/proshop-frontend --build-arg REACT_APP_NODE_ENV='production' --build-arg REACT_APP_BACKEND_URL=${{ secrets.BACKEND_URL }} .
 
       - name: Push Docker Image to Docker Hub
@@ -40,7 +41,8 @@ jobs:
         run: docker rm -f proshop-frontend-container || true
 
       - name: Run Docker Container
-        # Frontend typically doesn't need MONGO_PASSWORD
+        # Frontend typically doesn't need MONGO_PASSWORD or other backend secrets.
+        # Removed -e MONGO_PASSWORD as it's not relevant for the frontend.
         run: |
           docker run -d \
           -p 3000:80 \
